@@ -29,6 +29,7 @@ class MainActivity : ComponentActivity() {
         requestPermissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestPermission()) {
                 if (it) {
+                    //notification permission granted
                     LoggingFunctions.logData(
                         LoggingLevel.Info,
                         "NotificationPermission",

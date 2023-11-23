@@ -56,6 +56,7 @@ class NewsViewModel @Inject constructor(
     }
 
 
+    //sorts the list based on selection
     fun updateList(index: Int) {
         val sortedList: List<ArticlesBean>
         if (index !in 0..1) {
@@ -86,6 +87,11 @@ class NewsViewModel @Inject constructor(
     }
 
 
+    /**
+     * tries to get data from db then if list is empty tries to get it from remote
+     * but if isForceRefresh is true it will only tries to get data from remote
+     * isForce Refresh is only true only if user press refresh icon on home screen or app is first time opened
+     */
     fun getNewsFeedList(isForceRefresh: Boolean = false) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
@@ -94,14 +100,18 @@ class NewsViewModel @Inject constructor(
                     getNewsFeedList()
                 } else {
                     val articlesContent = getAllArticlesUseCase.invoke()
-                    val articlesBeanList = arrayListOf<ArticlesBean>()
-                    articlesContent.forEach {
-                        mapper.transform(it)?.let { it1 -> articlesBeanList.add(it1) }
+                    if (articlesContent.isEmpty()) {
+                        getNewsFeedList()
+                    } else {
+                        val articlesBeanList = arrayListOf<ArticlesBean>()
+                        articlesContent.forEach {
+                            mapper.transform(it)?.let { it1 -> articlesBeanList.add(it1) }
+                        }
+                        articleList.value = articlesBeanList
+                        updateList(sharedPreference.currentSelectedArticleSortFilter)
+                        _newsFeedResponseStateFow.value =
+                            ResponseState.success(null)
                     }
-                    articleList.value = articlesBeanList
-                    updateList(sharedPreference.currentSelectedArticleSortFilter)
-                    _newsFeedResponseStateFow.value =
-                        ResponseState.success(null)
                 }
             }
         }
@@ -122,7 +132,9 @@ class NewsViewModel @Inject constructor(
                         if (response.data?.status == "ok") {
                             val articlesContent = response.data?.articles
                             if (articlesContent != null) {
+                                //clear db before inserting new list
                                 clearAllArticlesUseCase.invoke()
+                                    // insert list to db
                                 val insertedList =
                                     insertArticlesListUseCase.invoke(articlesContent)
                                 sharedPreference.isNoRoomDataPresent =
