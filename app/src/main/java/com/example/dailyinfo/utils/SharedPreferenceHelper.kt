@@ -17,9 +17,8 @@ class SharedPreferenceHelper @Inject constructor(private val sharedPreferences: 
             editor.apply()
         }
 
-
     var currentSelectedArticleSortFilter
-        get() = sharedPreferences.getInt(CurrentSelectedArticleSortFilter, 0)
+        get() = sharedPreferences.getInt(CurrentSelectedArticleSortFilter, 1)
         set(updatedValue) {
             val editor = sharedPreferences.edit()
             editor.putInt(CurrentSelectedArticleSortFilter, updatedValue)
