@@ -9,7 +9,6 @@ A news app to keep you updated every where . Based On clean architecture , it im
 - Sort news based on time.
 - Easy refresh news.
 - One tap to see detailed news.
-- Cross platform.
 - Simple UI for easy use.
 
 ## Screenshots
