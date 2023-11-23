@@ -10,7 +10,7 @@ A news app to keep you updated every where . Based On clean architecture , it im
 - Easy refresh news.
 - One tap to see detailed news.
 - Simple UI for easy use.
-- 
+
 
 ## Screenshots
 
