@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "321883565449",
+    "project_id": "daily-info-f3362",
+    "storage_bucket": "daily-info-f3362.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:321883565449:android:4f7e128d0528114d3a4558",
+        "android_client_info": {
+          "package_name": "com.example.dailyinfo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCLORJZxMNAYkzyRaiKSWp8v3ZO0xgct4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
